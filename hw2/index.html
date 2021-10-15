@@ -1,18 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Photo Album</title>
-  <link
-    rel="stylesheet"
-    type="text/css"
-    media="screen"
-    href="styles.css"
-  />
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Album</title>
 </head>
 <body>
-  <script src="main.js"></script>
+    <div class = "menu">
+    <h1> My Album </h1>
+    <div class = "selection_bar">
+    <label for="MEME" onclick="tomeme()">MEME album</label>
+    <label for="POKE" onclick="topoke()">Pokemon album</label>
+    <label for="DIGI" onclick="toempty()">Empty album</label>
+    </div>
+    <div>
+        <h2 align = "left">
+            Selected Photo
+        </h2>
+        <h3 align = "center">
+            Collections
+        </h3>
+    </div>
+    <div class = "box box1">
+        <img src="https://cdn.vox-cdn.com/thumbor/cV8X8BZ-aGs8pv3D-sCMr5fQZyI=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19933026/image.png" id = "s" alt="a" align = "left">
+    </div>
+    <div class = "row">
+        <span class = "column">
+            <img src="https://cdn.vox-cdn.com/thumbor/cV8X8BZ-aGs8pv3D-sCMr5fQZyI=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19933026/image.png" onclick = "changephoto(this.id)" id = "a" alt="p" width = "200" height = "200">
+        </span>
+        <span class = "column">
+            <img src="https://cdn2.hubspot.net/hubfs/53/how-to-make-a-meme.jpg" onclick = "changephoto(this.id)" id = "b" alt="b" width = "200" height = "200">
+        </span>
+        <span class = "column">
+            <img src="https://media-assets-03.thedrum.com/cache/images/thedrum-prod/s3-news-tmp-349138-meme7--default--1050.png" onclick = "changephoto(this.id)" id = "c" alt="c" width = "200" height = "200">
+        </span>
+    </div>
+    <div class = "row">
+        <span class = "column">
+            <img src="https://travel.ulifestyle.com.hk/cms/news_photo/original/20210505190728___118283916_b19c5a1f-162b-410b-8169-f58f0d153752.jpg" onclick = "changephoto(this.id)" id = "d" alt="d" width = "200" height = "200">
+        </span>
+        <span class = "column">
+            <img src="https://images.theconversation.com/files/38926/original/5cwx89t4-1389586191.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip" onclick = "changephoto(this.id)" id = "e" alt="e" width = "200" height = "200">
+        </span>
+        <span class = "column">
+            <img src="https://www.adweek.com/wp-content/uploads/2020/04/AI-Meme-PAGE-2020.jpg" onclick = "changephoto(this.id)" id = "f" alt="f" width = "200" height = "200">
+        </span>
+    </div>
+    <div class = "row">
+        <span class = "column">
+            <img src="https://cdn.vox-cdn.com/thumbor/3MyX_yQsQFv8YK7K1kx_R3Vc490=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/13315879/npcmeme.jpg" onclick = "changephoto(this.id)" id = "g" alt="g" width = "200" height = "200">
+        </span>
+        <span class = "column">
+            <img src="https://ichef.bbci.co.uk/news/1024/branded_news/16DA6/production/_120660639_thumbnail_chloesideeye_clean.jpg" onclick = "changephoto(this.id)" id = "h" alt="h" width = "200" height = "200">
+        </span>
+        <span class = "column">
+            <img src="https://e3.365dm.com/19/09/2048x1152/skynews-drew-scanlon-blinking-white-guy_4786055.jpg" onclick = "changephoto(this.id)" id = "i" alt="i" width = "200" height = "200">
+        </span>
+    </div>
+</div>
+<script src="main.js"></script>
 </body>
 </html>
