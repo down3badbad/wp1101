@@ -75,7 +75,7 @@ const Calc = () => {
       let c = curr_value;
       let x = operators[b](a, c).toFixed(2);
       let ans = x % 1 === 0 ? operators[b](a, c) : operators[b](a, c).toFixed(2);
-      if(ans.length > 7) set_curr_value("overflow");
+      if(ans.toString().length > 7) set_curr_value("overflow");
       else set_curr_value(ans);
     }
   }
