@@ -26,7 +26,6 @@ const Calc = () => {
 
   ///////////////////////
   const add_num = (e) => {
-    console.log(past_val);
     let input = e.target.className.split(" ")[1].at(-1);
     if(lock_op.lock === 0){
       if(input === "."){
@@ -50,6 +49,19 @@ const Calc = () => {
     }
   }
 
+  const temp_cal = () => {
+    console.log(past_val);
+    if(past_val.length !== 0){
+      let b = past_val.at(-1);
+      let a = past_val.at(-2);
+      let c = curr_value;
+      let x = operators[b](a, c).toFixed(2);
+      let ans = x % 1 === 0 ? operators[b](a, c) : operators[b](a, c).toFixed(2);
+      if(ans.toString().length > 7) set_curr_value("overflow");
+      else set_curr_value(ans);
+    }
+  }
+
   ////////////////////
   const operator = (e) => {
     let input = e.target.className.split(" ")[2];
@@ -68,16 +80,7 @@ const Calc = () => {
     else if(input === "equal"){
       set_lock({lock: 1, op:"="});
     }
-
-    if(past_val.length !== 0){
-      let b = past_val.at(-1);
-      let a = past_val.at(-2);
-      let c = curr_value;
-      let x = operators[b](a, c).toFixed(2);
-      let ans = x % 1 === 0 ? operators[b](a, c) : operators[b](a, c).toFixed(2);
-      if(ans.toString().length > 7) set_curr_value("overflow");
-      else set_curr_value(ans);
-    }
+    temp_cal();
   }
 
   ///////////////////////
