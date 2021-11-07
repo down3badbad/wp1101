@@ -55,49 +55,28 @@ const Calc = () => {
     let input = e.target.className.split(" ")[2];
     if(input === "addition"){
       set_lock({lock: 1, op:"+"});
-      if(past_val.length !== 0){
-        let b = past_val.at(-1);
-        let a = past_val.at(-2);
-        let c = curr_value;
-        let ans = operators[b](a, c);
-        set_curr_value(ans);
-      }
     }
-
-
     else if(input === "subtraction"){
       set_lock({lock: 1, op:"-"});
-      if(past_val.length !== 0){
-        let b = past_val.at(-1);
-        let a = past_val.at(-2);
-        let c = curr_value;
-        let ans = operators[b](a, c);
-        set_curr_value(ans);
-      }
     }
-
-
     else if(input === "multiplication"){
       set_lock({lock: 1, op:"*"});
-      if(past_val.length !== 0){
-        let b = past_val.at(-1);
-        let a = past_val.at(-2);
-        let c = curr_value;
-        let ans = operators[b](a, c);
-        set_curr_value(ans);
-      }
     }
-
-
     else if(input === "division"){
       set_lock({lock: 1, op:"/"});
-      if(past_val.length !== 0){
-        let b = past_val.at(-1);
-        let a = past_val.at(-2);
-        let c = curr_value;
-        let ans = operators[b](a, c);
-        set_curr_value(ans);
-      }
+    }
+    else if(input === "equal"){
+      set_lock({lock: 1, op:"="});
+    }
+
+    if(past_val.length !== 0){
+      let b = past_val.at(-1);
+      let a = past_val.at(-2);
+      let c = curr_value;
+      let x = operators[b](a, c).toFixed(2);
+      let ans = x % 1 === 0 ? operators[b](a, c) : operators[b](a, c).toFixed(2);
+      if(ans.length > 7) set_curr_value("overflow");
+      else set_curr_value(ans);
     }
   }
 
@@ -132,7 +111,7 @@ const Calc = () => {
       <div className="button operator addition" onClick = {(e) => operator(e)}>+</div>
       <div className="button number-0" onClick = {(e) => add_num(e)}>0</div>
       <div className="button number-." onClick = {(e) => add_num(e)}>.</div>
-      <div className="button operator equal">=</div>
+      <div className="button operator equal" onClick = {(e) => operator(e)}>=</div>
     </div>
     </Fragment>
   );
