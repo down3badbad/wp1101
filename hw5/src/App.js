@@ -9,6 +9,12 @@ const Calc = () => {
   const [past_val, set_record] = useState([]);
   const [is_float, set_float] = useState(0);
   const [lock_op, set_lock] = useState({lock: 0, op: ""});
+  var operators = {
+    '+': function(a, b) { return +a + +b },
+    '-': function(a, b) { return a - b },
+    '*': function(a, b) { return a * b },
+    '/': function(a, b) { return a / b },
+  };
 
   const allclear = () => {
     set_curr_value(0);
@@ -20,6 +26,7 @@ const Calc = () => {
 
   ///////////////////////
   const add_num = (e) => {
+    console.log(past_val);
     let input = e.target.className.split(" ")[1].at(-1);
     if(lock_op.lock === 0){
       if(input === "."){
@@ -35,10 +42,11 @@ const Calc = () => {
       }
     }
     else{
-      let x = past_val.push(e.target.className.split(" ")[1].at(-1));
-      set_record(x);
+      let x = past_val.concat(curr_value);
+      let y = x.concat(lock_op.op);
+      set_record(y);
       set_curr_value(input);
-      set_lock(0);
+      set_lock({lock: 0, op: ""});
     }
   }
 
@@ -46,28 +54,50 @@ const Calc = () => {
   const operator = (e) => {
     let input = e.target.className.split(" ")[2];
     if(input === "addition"){
-      let x = past_val.push(curr_value);
-      set_record(x);
       set_lock({lock: 1, op:"+"});
-      
+      if(past_val.length !== 0){
+        let b = past_val.at(-1);
+        let a = past_val.at(-2);
+        let c = curr_value;
+        let ans = operators[b](a, c);
+        set_curr_value(ans);
+      }
     }
 
 
     else if(input === "subtraction"){
-      // set_record(past_val.push(curr_value));
       set_lock({lock: 1, op:"-"});
+      if(past_val.length !== 0){
+        let b = past_val.at(-1);
+        let a = past_val.at(-2);
+        let c = curr_value;
+        let ans = operators[b](a, c);
+        set_curr_value(ans);
+      }
     }
 
 
     else if(input === "multiplication"){
-      // set_record(past_val.push(curr_value));
       set_lock({lock: 1, op:"*"});
+      if(past_val.length !== 0){
+        let b = past_val.at(-1);
+        let a = past_val.at(-2);
+        let c = curr_value;
+        let ans = operators[b](a, c);
+        set_curr_value(ans);
+      }
     }
 
 
     else if(input === "division"){
-      // set_record(past_val.push(curr_value));
       set_lock({lock: 1, op:"/"});
+      if(past_val.length !== 0){
+        let b = past_val.at(-1);
+        let a = past_val.at(-2);
+        let c = curr_value;
+        let ans = operators[b](a, c);
+        set_curr_value(ans);
+      }
     }
   }
 
