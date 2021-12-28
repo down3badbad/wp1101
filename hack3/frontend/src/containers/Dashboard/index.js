@@ -78,24 +78,19 @@ export default function Dashboard() {
   // subscription to task deleted
   // TODO 6.5 subscription logic
   useEffect(() => {
-    // subscribeToMore({
-    //   document: TASK_DELETED_SUBSCRIPTION,
-    //   updateQuery: (prev, { subscriptionData }) => {
-    //     if (!subscriptionData.data) return prev;
-    //     const {
-    //       data: { taskDeleted },
-    //     } = subscriptionData;
-    //     return {
-    //       tasks: prev.tasks.map((task) => {
-    //         if (task.id !== taskDeleted.id) return task;
-    //         return {
-    //           ...task,
-    //           id: taskDeleted.id
-    //         };
-    //       }),
-    //     };
-    //   },
-    // });
+    subscribeToMore({
+      document: TASK_DELETED_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const {
+          data: { taskDeleted },
+        } = subscriptionData;
+        return {
+          id: subscriptionData.data.id
+          }
+        }
+      },
+    );
   }, [subscribeToMore]);
 
   // graphql mutation function
