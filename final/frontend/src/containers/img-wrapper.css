@@ -1,0 +1,45 @@
+.img-wrapper {
+    overflow: auto;
+    height: 400px;
+    background-color: blue;
+    position: relative;
+}
+
+.img-wrapper > img {
+    height: 200%;
+    width: 200%;
+    vertical-align: bottom;
+}
+
+.temp1 {
+    position: relative;
+    left: 23%;
+    padding: 3px;
+}
+
+.temp2 {
+    position: relative;
+    left: 10%;
+    top: 15px;
+    padding: 10px;
+}
+
+.temp3 {
+    position: relative;
+    left: 10%;
+    padding: 10px;
+}
+
+.temp4 {
+    position: relative;
+    left: 37%;
+    top: 30px;
+    padding: 10px;
+}
+
+.selbar {
+    position: relative;
+    left: 115px;
+    width: 150px;
+    padding: 8px;
+}

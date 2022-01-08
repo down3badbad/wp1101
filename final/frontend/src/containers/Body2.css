@@ -1,0 +1,37 @@
+.selbar {
+    position: relative;
+    left: 10px;
+    width: 150px;
+    padding: 8px;
+}
+
+.container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    text-align: center;
+}
+  
+/*apply css properties to button tag*/
+  
+button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background-color: green;
+    color: honeydew;
+}
+  
+/*apply hover effect to button tag*/
+  
+button:hover {
+    background-color: greenyellow;
+    color: grey;
+}
+
+h2 {
+    color: black;
+    margin: 0 35px;
+    font-size: 45px;
+}
