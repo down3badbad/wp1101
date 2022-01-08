@@ -1,0 +1,51 @@
+type Query {
+  chats(query: String): [Chat!]!
+}
+
+type Mutation {
+  createChat(data: createChatInput!): Status!
+  clearChat(name: String!): Status!
+}
+
+type Subscription {
+  chat(name: String!): ChatSubcriptionPayload!
+}
+
+type Chat {
+  name: String!
+  receiver: String!
+  body: String!
+}
+
+input createChatInput {
+  name: String!
+  receiver: String!
+  body: String!
+}
+
+input queryChatInput {
+  name: String!
+  receiver: String
+}
+
+enum MutationType {
+  output
+  clear
+}
+
+enum StatusType {
+  success
+  info
+  danger
+}
+
+type ChatSubcriptionPayload {
+  mutation: MutationType!
+  deletename: String
+  data: [Chat]
+}
+
+type Status {
+  type: StatusType
+  msg: String!
+}
