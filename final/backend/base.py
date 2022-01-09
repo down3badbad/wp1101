@@ -14,6 +14,8 @@ import os
 # import sounddevice as sd
 from utilities.gabor import Gabor, Gabor_preprocess
 from utilities.noise_filter import noise_reduction, sound_enhancement
+import pymongo
+from flask_pymongo import PyMongo
 
 
 current_path = os.getcwd()
@@ -28,17 +30,15 @@ def audio_preprocess(data):
 api = Flask(__name__)
 CORS(api)
 
-# api.config["MONGO_URI"] = "mongodb+srv://edo0419:<Npc991216>@webprogdb.3lx9o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+# client = pymongo.MongoClient("mongodb+srv://edo0419:Npc991216@webprogdb.3lx9o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+# print(client.list_database_names())
+# mydb = client["mydatabase"]
+# mycol = mydb["customers"]
+
+
+# api.config["MONGO_URI"] = "mongodb+srv://edo0419:Npc991216@webprogdb.3lx9o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 # mongo = PyMongo(api)
-# user_collection = mongo.db.list_collection_names()
-# print(user_collection)
-# print("Connected to db!")
-
-
-# client = pymongo.MongoClient("mongodb+srv://edo0419:<Npc991216>@webprogdb.3lx9o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-# db = client.list_database_names()
-# print(db)
-
+# print(mongo.db)
 
 @api.route('/api/TF-spectrum', methods=['POST'])
 def TF_spectrum():

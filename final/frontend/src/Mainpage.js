@@ -5,9 +5,9 @@ import Body from './containers/Body';
 import Body2 from './containers/Body2';
 import Body3 from './containers/Body3';
 import Login from './containers/Login';
+import Dashboard from './containers/Dashboard';
 import { useBody } from './hooks/useBody';
 import { useAuth } from './hooks/useAuth';
-
 
 function Mainpage(){
     const { currFunc } = useBody();
@@ -17,6 +17,7 @@ function Mainpage(){
         <div>
         <Header/>
         <Title/> 
+        <Dashboard/>
         {currFunc == "TF-spectrum" ? <Body/> : (currFunc == "adjust-speed" ? <Body2/> : <Body3/>)}
         </div>
     );
@@ -25,6 +26,7 @@ function Mainpage(){
         <>
         {isLogin == false ? <Login/> : Enter}
         </>
+        // <Dashboard/>
     )
 }
 

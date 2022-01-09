@@ -10,15 +10,14 @@ import Typography from '@mui/material/Typography';
 import axios from '../api';
 
 const Wrapper = styled.section`
-  margin: auto;
-  width: 80%;
-  height: 65vh;
-  border: 2px solid blue;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
+    border: 2px solid gray;
+    flex-wrap: wrap;
+    width: 72%;
+    height: 65vh;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 20%;
 `;
 
 

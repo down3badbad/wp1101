@@ -8,13 +8,12 @@ import Typography from '@mui/material/Typography';
 import axios from '../api';
 
 const Wrapper = styled.section`
-  margin: auto;
-  width: 80%;
+  width: 72%;
   height: 65vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  left: 20%;
 `;
 
 const Left = styled.div`
