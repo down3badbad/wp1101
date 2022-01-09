@@ -4,10 +4,17 @@ import './index.css';
 import App from './App';
 import Mainpage from './Mainpage'
 import reportWebVitals from './reportWebVitals';
+import { BodyProvider } from './hooks/useBody';
+import { AuthProvider } from './hooks/useAuth';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Mainpage />
+    <AuthProvider>
+    <BodyProvider>
+      <Mainpage />
+    </BodyProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

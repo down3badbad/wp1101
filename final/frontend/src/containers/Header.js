@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,20 +9,26 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import styled from 'styled-components';
+import { useBody } from '../hooks/useBody';
+import { useAuth } from '../hooks/useAuth';
 
 const Wrapper = styled.div`
   text-align: center;
 `;
 
 function Header() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { currFunc, setFunc, setNo } = useBody();
+  const { username } = useAuth();
 
   const handleMenu = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleChange = (event) => {
     setAnchorEl(null);
+    setFunc(event.currentTarget.id);
+    event.currentTarget.id == "TF-spectrum" ? setNo(0) : (currFunc == "adjust-speed" ? setNo(1) : setNo(2));
   };
 
   return (
@@ -44,6 +50,7 @@ function Header() {
             MENU
           </Typography>
           <Menu
+                value = {currFunc}
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -56,17 +63,16 @@ function Header() {
                   horizontal: 'right',
                 }}
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
+                onClose={handleChange}
               >
-                <MenuItem onClick={handleClose}>Audio speed adjustment</MenuItem>
-                <MenuItem onClick={handleClose}>Spectrum Analyzer</MenuItem>
-                <MenuItem onClick={handleClose}>Noise Reduction</MenuItem>
-                <MenuItem onClick={handleClose}>Sound Enhancement</MenuItem>
+                <MenuItem id = "TF-spectrum" onClick={handleChange}>Spectrum Analyzer</MenuItem>
+                <MenuItem id = "adjust-speed" onClick={handleChange}>Audio speed adjustment</MenuItem>
+                <MenuItem id = "reduction/enhancement" onClick={handleChange}>Noise Reduction/Sound Enhancement</MenuItem>
           </Menu>
           <Typography  variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            AUDIO SPECTRUM ANALYZER
+            AUDIO SPECTRUM ANALYZER TOOLKIT
           </Typography>
-          <Button color="inherit">ADMIN</Button>
+          <Button color="inherit">Welcome, {username}!</Button>
         </Toolbar>
       </AppBar>
     </Box>

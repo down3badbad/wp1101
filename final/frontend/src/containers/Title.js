@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styled from 'styled-components';
+import { useBody } from '../hooks/useBody';
 
 const Wrapper = styled.div`
 margin: auto;
@@ -16,12 +17,12 @@ flex-direction: column;
 justify-content: center;
 `;
 
-const title_arr = ["What is Time-Frequency spectrum analysis?", "", "", ""]
-const title_description = [".............", "", "", ""]
+const title_arr = ["What is Time-Frequency spectrum analysis?", "..", "..."]
+const title_description = [".............", "....", "...."]
 
 
 export default function Title() {
-  const [currFunc, setcurrFunc] = useState("");
+  const { currNo } = useBody();
 
   return (
     <Wrapper>
@@ -31,11 +32,11 @@ export default function Title() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-        <Typography variant = "h5" component = "h5" align = "center">{title_arr[0]}</Typography>
+        <Typography variant = "h5" component = "h5" align = "center">{title_arr[currNo]}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            {title_description[0]}
+            {title_description[currNo]}
           </Typography>
         </AccordionDetails>
       </Accordion>

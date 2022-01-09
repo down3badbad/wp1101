@@ -20,14 +20,15 @@ const Wrapper = styled.section`
 const Left = styled.div`
   float:left;
   height:100%;
-  width: 75%;
+  width: 70%;
   border-style: groove;
 `;
 
 const Right = styled.div`
   height:100%;
-  width: 25%;
+  width: 30%;
   border-style: ridge;
+  // text-align: center;
 `;
 
 
@@ -68,23 +69,23 @@ export default function Body() {
           <img src = {image} height="100%" width="100%"></img>
         </Left>
         <Right>
-          <div className="temp1">
-            <h2>Upload Audio File</h2>
+          <div className="temp1" style={{fontSize:"30px", fontWeight:"bolder", position:"relative", left:"5%", padding:"5px"}}>
+            Upload Audio File
           </div>
-          <select className="selbar">
+          <select className="selbar" style={{position:"relative", left:"8%", padding:"10px", margin:'5px'}}>
             <option value = "chord">Chord</option>
             <option value = "handel">Handel</option>
             <option value = "sample">Sample</option>
           </select>
-          <audio className="temp2" preload = "auto" src = {audio} controls></audio>
+          <audio className="temp2" preload = "auto" src = {audio} controls style={{position:"relative", left:"0%"}}></audio>
           
-          {/* <form enctype="multipart/form-data" action="/upload" method="post"> */}
-          <input className="temp3" type="file" id="input_aud" accept = ".mp3,.wav,.jpg" onChange={handleChange(setAudio)} />
-          {/* </form> */}
+          <input className="temp3" type="file" id="input_aud" accept = ".mp3,.wav,.jpg" onChange={handleChange(setAudio)} 
+            style={{position:"relative", left:"5%"}}/>
 
-          <Typography variant = "p" component = "p" align = "center">Supported audio file format: MP3, WAV</Typography>
+          <Typography variant = "p" component = "p" align = "center" >Supported audio file format: MP3, WAV</Typography>
 
-          <Button size = "large" className="temp4" variant="contained" color="success" onClick={uploadAudio}>
+          <Button size = "large" className="temp4" variant="contained" color="success" 
+            style={{ width: 160, height: 70, position:"relative", left:"25%"}} onClick={uploadAudio}>
             {status}
           </Button>
         </Right>

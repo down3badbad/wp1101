@@ -4,17 +4,26 @@ import Title from './containers/Title'
 import Body from './containers/Body';
 import Body2 from './containers/Body2';
 import Body3 from './containers/Body3';
-
+import Login from './containers/Login';
+import { useBody } from './hooks/useBody';
+import { useAuth } from './hooks/useAuth';
 
 
 function Mainpage(){
-    return (
-        <>
+    const { currFunc } = useBody();
+    const { isLogin } = useAuth();
+
+    const Enter = (
+        <div>
         <Header/>
         <Title/> 
-        {/* <Body/> */}
-        {/* <Body2/> */}
-        <Body3 />
+        {currFunc == "TF-spectrum" ? <Body/> : (currFunc == "adjust-speed" ? <Body2/> : <Body3/>)}
+        </div>
+    );
+    
+    return (
+        <>
+        {isLogin == false ? <Login/> : Enter}
         </>
     )
 }

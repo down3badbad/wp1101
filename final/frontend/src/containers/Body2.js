@@ -16,8 +16,8 @@ const Wrapper = styled.section`
   border: 2px solid blue;
   position: relative;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+//   justify-content: center;
+//   flex-direction: column;
   flex-wrap: wrap;
 `;
 
@@ -29,6 +29,7 @@ export default function Body2() {
     
     //Parameters
     const [speed, setSpeed] = useState(1.0);
+    const [timeDuration, setTimeDuration] = useState(0.0);
 
     //Status
     const [status, setStatus] = useState("convert");
@@ -36,24 +37,33 @@ export default function Body2() {
     const [convertedAudio, setconvertedAudio] = useState("");
     
     const handleChange = (func) => (event) => {
+        console.log(event.target.files[0]);
         setFile(event.target.files[0]);
         setFileName(event.target.files[0].name);
+        let urlObj;
         if(event.target.files[0] !== null){
-        const urlObj = URL.createObjectURL(event.target.files[0]);
-        func(urlObj);
+            urlObj = URL.createObjectURL(event.target.files[0]);
+            func(urlObj);
         }
+        let temp = document.getElementById("audio");
+        temp.onloadedmetadata = function() {
+            setTimeDuration(temp.duration);
+        };
     };
 
     //Done calculation pop out additional DOM
     const DoneAudio = (
-        <div>
-            <div>
-                <p>Adjusted Audio:</p>
+        <div id="done_audio_div">
+            <div id="adjusted_audio_text">
+                Adjusted Audio:
             </div>
-            <Button size = "large" variant="contained" color="success" >
+            <div id="done_audio">
+                <audio src = {convertedAudio} controls></audio>
+            </div>
+            <Button id="download_button" size = "large" variant="contained" color="success" style={{ width: 120, height: 60 }} >
                 <a href = {convertedAudio} download = {fileName.replace('./wav', '') + "_adjusted.wav"}>Download</a>
             </Button> 
-            <audio src = {convertedAudio} controls></audio>
+            
         </div>
     );
 
@@ -79,12 +89,14 @@ export default function Body2() {
     // }
 
     const uploadAudio = async () => {
+        console.log(`time duration is ${timeDuration}`)
         console.log("uploading to audio to backend.. waiting for response");
         setStatus("Loading");
         const formData = new FormData();  
         formData.append('file' ,file);
         formData.append('fileName' , fileName);
         formData.append('speed', speed);
+        formData.append('timeDuration', timeDuration);
   
         const res = await axios.post('/api/speed-adjustment', formData , {
           headers: {'Content-Type': 'multipart/form-data; '},
@@ -92,7 +104,7 @@ export default function Body2() {
         
         console.log("received based64 string as processed audio");
         const audio = res.data.snd;
-        setconvertedAudio(`data:audio/wav;base64,${audio}`);
+        setconvertedAudio(`data:audio/mp3;base64,${audio}`);
         setStatus("Convert");
         sethasDone(true);
       }
@@ -100,31 +112,57 @@ export default function Body2() {
 
     return(
         <Wrapper>
-            <div className ="container">            
-                <button id = "b1" onClick = {increment}>+</button>  
-                <h2 id="counting"> {speed} </h2>
-                <button id = "b2" onClick = {decrement}>-</button>         
+             <div id="title">
+                <p id="top_title">Upload Audio File</p>
             </div>
-             <div>
-                <h2>Upload Audio File</h2>
+            <div id="audio_sample">
+                <p className="audio_sample_text">Audio Sample:</p>
+                <div className = "selbar_div">
+                    <div id="selbar1">
+                        <select id="selbar">
+                            <option value = "Chord" >Chord</option>
+                            <option value = "handel">Handel</option>
+                            <option value = "sample">Sample</option>
+                        </select>
+                    </div>
+                    <div id="input_aud1">
+                        <input type="file" id="input_aud" accept = ".mp3,.wav" onChange={handleChange(setAudio)} />
+                    </div>
+                </div>
+                <div id="audio_div">
+                    <audio id="audio" preload = "auto" src = {audio} controls></audio>
+                </div>
             </div>
-            <div>
-                <p>Audio Sample:</p>
-                <select className = "selbar">
-                <option value = "Chord" >Chord</option>
-                <option value = "handel">Handel</option>
-                <option value = "sample">Sample</option>
-                </select>
+            <div id="speed_adjust_text">Speed Adjustment:</div>
+
+            <div id ="adjust_speed_div">       
+                {/* <div className="adjust_speed_button">   */}
+                <button id = "b1" onClick = {decrement} disabled={speed<= 0.25}>-</button>       
+                {/* </div> */}
+                <div id="current_speed_display" > {speed} </div>
+                {/* {speed} */}
+                {/* <div className="adjust_speed_button"> */}
+                <button id = "b2" onClick = {increment} disabled={speed >= 2.5}>+</button>  
+                {/* </div> */}
             </div>
-            <audio preload = "auto" src = {audio} controls></audio>
-            <input type="file" id="input_aud" accept = ".mp3,.wav" onChange={handleChange(setAudio)}>
-            </input>
+
+            <div id="supported_text">Supported audio file format: MP3, WAV</div>
+            <div id="convert_button">
+                <Button size = "large" variant="contained"  onClick={uploadAudio}
+                    style={{ width: 160, height: 70 }} >
+                    {status}
+                </Button>
+            </div>
+            
+            {hasDone ? DoneAudio : null}
+
+            {/* 
+            
             <Typography variant = "p" component = "p" align = "center">Supported audio file format: MP3, WAV</Typography>
             <Typography variant = "p" component = "p" align = "center">Speed Adjustment: </Typography>
-            <Button size = "large" variant="contained" color="success" onClick={uploadAudio} >
-                {status}
-            </Button>
-            {hasDone ? DoneAudio : null}
+
+            
+             */}
 
         </Wrapper>
     )

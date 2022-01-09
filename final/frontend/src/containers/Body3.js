@@ -32,6 +32,7 @@ export default function Body3() {
     const [mode, setMode] = useState("reduction");
     const [size, setSize] = useState(10);
     const [decay, setDecay] = useState(1);
+    const [timeDuration, setTimeDuration] = useState(0.0);
 
     //Status
     const [status, setStatus] = useState("convert");
@@ -43,20 +44,35 @@ export default function Body3() {
         setFileName(event.target.files[0].name);
         if(event.target.files[0] !== null){
         const urlObj = URL.createObjectURL(event.target.files[0]);
-        func(urlObj);
+            func(urlObj);
         }
+        let temp = document.getElementById("audio");
+        temp.onloadedmetadata = function() {
+            setTimeDuration(temp.duration);
+        };
     };
 
     //Done calculation pop out additional DOM
     const DoneAudio = (
-        <div>
-            <div>
-            <p>Adjusted Audio:</p>
+        // <div>
+        //     <div>
+        //     <p>Adjusted Audio:</p>
+        //     </div>
+        //     <Button size = "large" variant="contained" color="success" >
+        //         <a href = {convertedAudio} download = {fileName + "_adjusted.wav"}>Download</a>
+        //     </Button> 
+        //     <audio src = {convertedAudio} controls></audio>
+        // </div>
+        <div id="done_audio_div">
+            <div id="adjusted_audio_text">
+                Adjusted Audio:
             </div>
-            <Button size = "large" variant="contained" color="success" >
-                <a href = {convertedAudio} download = {fileName + "_adjusted.wav"}>Download</a>
+            <div id="done_audio">
+                <audio src = {convertedAudio} controls></audio>
+            </div>
+            <Button id="download_button" size = "large" variant="contained" color="success" style={{ width: 120, height: 60 }} >
+                <a href = {convertedAudio} download = {fileName.replace('./wav', '') + "_adjusted.wav"}>Download</a>
             </Button> 
-            <audio src = {convertedAudio} controls></audio>
         </div>
     );
 
@@ -70,6 +86,7 @@ export default function Body3() {
         formData.append('mode', mode);
         formData.append('intervalSize', size);
         formData.append('decaySpeed', decay);
+        formData.append('timeDuration', timeDuration);
 
         const res = await axios.post('/api/reduction-enhancement', formData , {
             headers: {'Content-Type': 'multipart/form-data; '},
@@ -89,51 +106,84 @@ export default function Body3() {
     }
 
     const updateDecay = () => (event) => {
-        setDecay(event.target.value);
+        setDecay(event.target.value * 0.1);
+        console.log(decay);
     }
 
     const updateMode = () => (event) => {
         setMode(event.target.value);
+
+        // if (event.target.value == "reduction") {
+        //     document.getElementById("reduction_button1").variant = "contained";
+        //     document.getElementById("enhancement_button1").variant = "outlined";
+        // }
+        // else {
+        //     document.getElementById("reduction_button1").variant = "outlined";
+        //     document.getElementById("enhancement_button1").variant = "contained";
+        // }
     }
 
     return(
         <Wrapper>
-             <div>
-                <h2>Upload Audio File</h2>
+             <div id="title">
+                <p id="top_title">Upload Audio File</p>
             </div>
-            <div>
-                <p>Audio Sample:</p>
-                <select className = "selbar">
-                <option value = "Chord" >Chord</option>
-                <option value = "handel">Handel</option>
-                <option value = "sample">Sample</option>
-                </select>
+            <div id="audio_sample">
+                <p className="audio_sample_text">Audio Sample:</p>
+                <div className = "selbar_div">
+                    <div id="selbar1">
+                        <select id="selbar">
+                            <option value = "Chord" >Chord</option>
+                            <option value = "handel">Handel</option>
+                            <option value = "sample">Sample</option>
+                        </select>
+                    </div>
+                    <div id="input_aud1">
+                        <input type="file" id="input_aud" accept = ".mp3,.wav" onChange={handleChange(setAudio)} />
+                    </div>
+                </div>
+                <div id="audio_div">
+                    <audio id="audio" preload = "auto" src = {audio} controls></audio>
+                </div>
             </div>
-            <audio preload = "auto" src = {audio} controls></audio>
-            <input type="file" id="input_aud" accept = ".mp3,.wav" onChange={handleChange(setAudio)}>
-            </input>
-            <Typography variant = "p" component = "p" align = "center">Supported audio file format: MP3, WAV</Typography>
-            <Typography variant = "p" component = "p" align = "center">Speed Adjustment: </Typography>
-        <Button size = "large" variant="contained" color="success" onClick={uploadAudio}>
-            {status}
-        </Button>
-        <Button size = "large" value = "reduction" variant="contained" color="success" onClick = {updateMode()}>
-            Reduction
-        </Button>
-        <Button size = "large" value = "enhancement" variant="contained" color="success" onClick = {updateMode()}>
-            Enhancement
-        </Button>
-        <div className="container">
-            <div className="slider">
-                <input type = "range" min="7" max="25" onChange={updateSize()}/>
+            <div id="mode_adjust_text">Mode:</div>
+            <div id="mode_select_div">
+                <div id="reduction_button">
+                    <Button size = "large" variant='contained'  id="reduction_button1" value = "reduction" onClick={updateMode()}
+                        style={mode!='reduction'? { width: 160, height: 70, backgroundColor:"#70D1D0", color:"black"}
+                        : { width: 160, height: 70, backgroundColor:"#008080", color:"white"}} >
+                        Reduction
+                    </Button>
+                </div>
+                <div id="enhancement_button">
+                    <Button size = "large" variant='contained' id="enhancement_button1" value = "enhancement" onClick={updateMode()}
+                        style={mode=='reduction'? { width: 160, height: 70, backgroundColor:"#e84855", color:"black"}
+                               : { width: 160, height: 70, backgroundColor:"#9a0001", color:"white"}} >
+                        Enhancement
+                    </Button>
+                </div>
             </div>
-        </div>
-        <div className="container">
-            <div className="slider">
-                <input type = "range" min="0.1" max="3" onChange={updateDecay()}/>
+            <div id="supported_text">Supported audio file format: MP3, WAV</div>
+            <div id="convert_button">
+                <Button size = "large" variant="contained"  onClick={uploadAudio}
+                    style={{ width: 160, height: 70 }} >
+                    {status}
+                </Button>
             </div>
-        </div>
-        {hasDone ? DoneAudio : null}
+            
+            <div className="slider_container1">
+                Filter Size:
+                <div className="slider1">
+                    <input type = "range" min="7" max="25" onChange={updateSize()}/>
+                </div>
+            </div>
+            <div className="slider_container2">
+                Sigma Magnitude:
+                <div className="slider2">
+                    <input type = "range" min="1" max="30" onChange={updateDecay()}/>
+                </div>
+            </div>
+            {hasDone ? DoneAudio : null}
         </Wrapper>
     )
 }
