@@ -23,6 +23,8 @@ const AuthProvider = (props) => {
         headers: {'Content-Type': 'multipart/form-data; '},
       });
 
+      console.log(res.data)
+
       let index = 1;
       for (var key in res.data) {
         let tmp = "";
@@ -49,7 +51,7 @@ const AuthProvider = (props) => {
         }
 
         else{
-          if(res.data[key].params === "Reduction"){
+          if(res.data[key].params === "reduction"){
             tmp += "Mode: " + p3_a;
             let converted_data = `data:audio/mp3;base64,${res.data[key].data1}`;
             const update = { str: tmp, data: converted_data, filename: res.data[key].filename}

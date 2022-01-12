@@ -118,7 +118,6 @@ def retrieve_data():
     retrieve_data4 = final_pool[3]
     retrieve_data5 = final_pool[4]
 
-
     response1 = {
         "data1" : retrieve_data1.data1,
         "operation" : retrieve_data1.operation,

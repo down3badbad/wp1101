@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react'
 import './Login.css'
 import { useAuth } from '../hooks/useAuth';
 import axios from '../api';
+// import CryptoJS from "crypto-js";
+import bcrypt from "bcryptjs";
 
 export default function Login() {
     const { setData, setLogin, setUser } = useAuth();
 
     const validateUser = async (user, psw) => {
-        const formData = new FormData();  
+        const formData = new FormData();
+        let encrypt_psw = bcrypt.hashSync(psw, '$2a$10$CwTycUXWue0Thq9StjUM0u');
         formData.append('user' ,user);
-        formData.append('psw' , psw);
+        formData.append('psw' , encrypt_psw);
 
         let output = false;
         const res = await axios.post('/api/login', formData , {
