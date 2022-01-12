@@ -40,10 +40,6 @@ print(db)
 print("successfully connect to mongoDB atlas!")
 
 
-# ------- testing for uploading data to mongoDB ------
-# LogIn_user(username='admin2', password='testpw').save()
-# print("successful create and upload an user!")
-
 class LogIn_user(db.Document):
     username = db.StringField()
     password = db.StringField()
