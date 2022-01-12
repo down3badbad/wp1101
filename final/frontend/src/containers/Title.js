@@ -17,7 +17,7 @@ flex-direction: column;
 justify-content: center;
 `;
 
-const title_arr = ["What is Time-Frequency spectrum analysis?", "..", "..."]
+const title_arr = ["What is Time-Frequency spectrum analysis?", "What is Speed Adjustment?", "What is Noise Reduction/Sound Enhancement?"]
 const title_description = [".............", "....", "...."]
 
 

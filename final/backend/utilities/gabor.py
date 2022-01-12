@@ -46,7 +46,7 @@ def Gabor(x, tau, t, f, sgm):
 		# print('done fft1')
 
 		for m in f:
-			X[m-m0,n] = X1[0,m%N]* cmath.exp(0 + 2j* math.pi* (Q-n*S) * m/N)* dt;
+			X[m-m0,n] = X1[0,m%N]* cmath.exp(0 + 2j* math.pi* (Q-n*S) * m/N)* dt
 
 	X = sgm**(1/4) * X
 	print(f"total execute time: {round(time.time()-start_time,2)}")
@@ -68,7 +68,9 @@ def Gabor_preprocess(data, fs, lowerBound_freq, upperBound_freq, sgm):
 
 	total_seconds = round(len(tau)/fs,1)
 
-	t = np.arange(0, round(max(tau)/dt))
+	t = np.arange(0, round(max(tau)/dt), dtype=float)
+	# print(type(t[0]))
+	# print(type(dt))
 	t *= dt
 	lowerBound_freq, upperBound_freq = 0, 2000
 	f = np.arange(lowerBound_freq, upperBound_freq, df)
@@ -77,26 +79,26 @@ def Gabor_preprocess(data, fs, lowerBound_freq, upperBound_freq, sgm):
 	return data, tau, t, f
 
 
-if __name__ == '__main__':
-	fs, data = wavfile.read('../../Chord.wav')
-	print('read data...')
+# if __name__ == '__main__':
+# 	fs, data = wavfile.read('../../Chord.wav')
+# 	print('read data...')
 
-	fs, lowerBound_freq, upperBound_freq, sgm = 44100, 0, 2000, 200
-	[data, tau, t, f] = Gabor_preprocess(data, fs, lowerBound_freq, upperBound_freq, sgm)
-	print('preprocessing..')
+# 	fs, lowerBound_freq, upperBound_freq, sgm = 44100, 0, 2000, 200
+# 	[data, tau, t, f] = Gabor_preprocess(data, fs, lowerBound_freq, upperBound_freq, sgm)
+# 	print('preprocessing..')
 
-	print('doing gabor transform...')
-	y, row, col = Gabor(data, tau, t, f, sgm)
+# 	print('doing gabor transform...')
+# 	y, row, col = Gabor(data, tau, t, f, sgm)
 
-	horizontal_scale_forPlot = 8
-	y1 = np.zeros((len(f),len(t)*horizontal_scale_forPlot), dtype=complex)
+# 	horizontal_scale_forPlot = 8
+# 	y1 = np.zeros((len(f),len(t)*horizontal_scale_forPlot), dtype=complex)
 
-	for n in range(0,len(t)):
-	    for k in range(n*horizontal_scale_forPlot, (n+1)*horizontal_scale_forPlot-1):
-	        y1[:,k] = y[:,n]
+# 	for n in range(0,len(t)):
+# 	    for k in range(n*horizontal_scale_forPlot, (n+1)*horizontal_scale_forPlot-1):
+# 	        y1[:,k] = y[:,n]
 
-	normalize = np.max(np.abs(y))
-	plt.imshow(np.abs(y1)/normalize, cmap='gray', origin='lower')
-	plt.xlabel('Time (sec)')
-	plt.ylabel('Frequency (Hz)')
-	plt.show()
+# 	normalize = np.max(np.abs(y))
+# 	plt.imshow(np.abs(y1)/normalize, cmap='gray', origin='lower')
+# 	plt.xlabel('Time (sec)')
+# 	plt.ylabel('Frequency (Hz)')
+# 	plt.show()

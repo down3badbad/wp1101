@@ -14,7 +14,7 @@ function Mainpage(){
     const { isLogin } = useAuth();
 
     const Enter = (
-        <div>
+        <div style ={{backgroundImage: `url(https://image.freepik.com/free-vector/sound-wave-black-digital-background-entertainment-technology_53876-116190.jpg`, height: "100vh"}}>
         <Header/>
         <Title/> 
         <Dashboard/>
@@ -26,7 +26,6 @@ function Mainpage(){
         <>
         {isLogin == false ? <Login/> : Enter}
         </>
-        // <Dashboard/>
     )
 }
 

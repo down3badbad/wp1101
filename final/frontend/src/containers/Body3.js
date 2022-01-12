@@ -1,10 +1,9 @@
 import { Button } from '@mui/material';
 import styled from 'styled-components';
-import img from './eg_file/title1.jpg';
 import './Body3.css';
-// import handel from './eg_file/handel.wav'
-// import chord from './eg_file/Chord.wav'
-// import sample from './eg_file/sample.wav'
+import b from './eg_file/handel.wav'
+import a from './eg_file/Chord.wav'
+import c from './eg_file/sample.wav'
 import { useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography';
 import axios from '../api';
@@ -23,11 +22,29 @@ const Wrapper = styled.section`
 
 export default function Body3() {
     //Audio
-    const [audio, setAudio] = useState("");
-    const [file, setFile] = useState("");
-    const [fileName, setFileName] = useState("");
-    
+    const [audio, setAudio] = useState(a);
+    const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState("Chord.wav");
+
+    const retrieveBlob = async (x, fn) => {
+        let blob = await fetch(x).then(r => r.blob());
+        let file = new File([blob], fn, { type: "audio/wav" });
+        let temp = document.getElementById("audio");
+        temp.onloadedmetadata = function() {
+            setTimeDuration(temp.duration);
+        };
+        setFile(file);
+    }
+
+    //Retrieve one time
+    if(file === null) {
+        retrieveBlob(a, "Chord.wav");
+    }
+    //Initialize sample audio
+    const sample_sound = [a, b, c];
+    const sample_filename = ["Chord.wav", "handel.wav", "sample.wav"];
     //Parameters
+
     const [mode, setMode] = useState("reduction");
     const [size, setSize] = useState(10);
     const [decay, setDecay] = useState(1);
@@ -70,7 +87,7 @@ export default function Body3() {
                 <audio src = {convertedAudio} controls></audio>
             </div>
             <Button id="download_button" size = "large" variant="contained" color="success" style={{ width: 120, height: 60 }} >
-                <a href = {convertedAudio} download = {fileName.replace('./wav', '') + "_adjusted.wav"}>Download</a>
+                <a href = {convertedAudio} download = {fileName.split(".")[0] + "_adjusted.wav"}>Download</a>
             </Button> 
         </div>
     );
@@ -122,8 +139,27 @@ export default function Body3() {
         // }
     }
 
+    //Change sample audio
+    const sampleChange = () => (event) => {
+        if(event.target.value == "Chord"){
+            setAudio(sample_sound[0]);
+            setFileName(sample_filename[0]);
+            retrieveBlob(a, "Chord.wav");
+        }
+        else if(event.target.value == "handel"){
+            setAudio(sample_sound[1]);
+            setFileName(sample_filename[1]);
+            retrieveBlob(b, "handel.wav");
+        }
+        else{
+            setAudio(sample_sound[2]);
+            setFileName(sample_filename[2]);
+            retrieveBlob(c, "sample.wav");
+        }
+    }
+
     return(
-        <Wrapper>
+        <Wrapper style = {{backgroundColor: "white"}}>
              <div id="title">
                 <p id="top_title">Upload Audio File</p>
             </div>
@@ -131,14 +167,14 @@ export default function Body3() {
                 <p className="audio_sample_text">Audio Sample:</p>
                 <div className = "selbar_div">
                     <div id="selbar1">
-                        <select id="selbar">
+                        <select id="selbar" onChange = {sampleChange()}>
                             <option value = "Chord" >Chord</option>
                             <option value = "handel">Handel</option>
                             <option value = "sample">Sample</option>
                         </select>
                     </div>
                     <div id="input_aud1">
-                        <input type="file" id="input_aud" accept = ".mp3,.wav" onChange={handleChange(setAudio)} />
+                        <input type="file" id="input_aud" accept = ".wav" onChange={handleChange(setAudio)} />
                     </div>
                 </div>
                 <div id="audio_div">
@@ -162,9 +198,9 @@ export default function Body3() {
                     </Button>
                 </div>
             </div>
-            <div id="supported_text">Supported audio file format: MP3, WAV</div>
+            <div id="supported_text">Supported audio file format: WAV</div>
             <div id="convert_button">
-                <Button size = "large" variant="contained"  onClick={uploadAudio}
+                <Button size = "large" variant="contained" disabled = {status === "Loading"} onClick={uploadAudio}
                     style={{ width: 160, height: 70 }} >
                     {status}
                 </Button>

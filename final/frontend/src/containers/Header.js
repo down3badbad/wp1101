@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { currFunc, setFunc, setNo } = useBody();
-  const { username } = useAuth();
+  const { username, setLogin } = useAuth();
 
   const handleMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -31,10 +31,14 @@ function Header() {
     event.currentTarget.id == "TF-spectrum" ? setNo(0) : (currFunc == "adjust-speed" ? setNo(1) : setNo(2));
   };
 
+  const changeLogout = () => (event) => {
+    setLogin(false);
+  }
+
   return (
     <Wrapper>
     <Box sx={{ flexGrow: 1, backgroundColor: 'black' }}>
-      <AppBar position="sticky" style={{backgroundColor: "green"}}>
+      <AppBar position="sticky" style={{backgroundColor: "#202020"}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -69,10 +73,10 @@ function Header() {
                 <MenuItem id = "adjust-speed" onClick={handleChange}>Audio speed adjustment</MenuItem>
                 <MenuItem id = "reduction/enhancement" onClick={handleChange}>Noise Reduction/Sound Enhancement</MenuItem>
           </Menu>
-          <Typography  variant="h5" component="div" sx={{ flexGrow: 1 }}>
+          <Typography  style = {{fontWeight: "bold"}}variant="h5" component="div" sx={{ flexGrow: 1 }}>
             AUDIO SPECTRUM ANALYZER TOOLKIT
           </Typography>
-          <Button color="inherit">Welcome, {username}!</Button>
+          <Button color="inherit" onClick={changeLogout()}>Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>

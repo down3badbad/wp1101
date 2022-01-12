@@ -4,18 +4,31 @@ import { useAuth } from '../hooks/useAuth';
 import axios from '../api';
 
 export default function Login() {
-    const { setLogin, setUser } = useAuth();
+    const { setData, setLogin, setUser } = useAuth();
 
     const validateUser = async (user, psw) => {
         const formData = new FormData();  
         formData.append('user' ,user);
         formData.append('psw' , psw);
 
+        let output = false;
         const res = await axios.post('/api/login', formData , {
             headers: {'Content-Type': 'multipart/form-data; '},
         });
+
+        let userExist = res.data.userExist;
+        let passwordCorrect = res.data.passwordCorrect;
+        if (userExist == "true" && passwordCorrect == "true"){
+            output = 1;
+        }
+        else if (userExist == "true") {
+            output = 2;
+        }
+        else if (userExist !== "true") {
+            output = 3;
+        }
         
-        return res.data.validate;
+        return output;
     }
 
     const checkUser = async (e) => {
@@ -23,14 +36,27 @@ export default function Login() {
         const password = document.getElementById("password-field");
         const loginErrorMsg = document.getElementById("login-error-msg");
 
-        if (await validateUser(username.value, password.value)) {
+        let result = await validateUser(username.value, password.value);
+
+        if (result === 1) {
+            loginErrorMsg.style.opacity = 0;
+            setData(username);
             alert("Welcome!");
             setLogin(true);
             setUser(username.value);
         }
-        else {
+        else if (result === 2) {
             loginErrorMsg.style.opacity = 1;
+            loginErrorMsg.innerHTML = "password incorrect";
         }
+        else if (result === 3) {
+            loginErrorMsg.style.opacity = 1;
+            loginErrorMsg.innerHTML = "invalid user";
+        }
+    }
+
+    const handleEnter = (e) => {
+        if(e.key === "Enter") checkUser();
     }
 
     return (
@@ -39,13 +65,13 @@ export default function Login() {
             <h1 id="login-header">Login Page</h1>
             
             <div id="login-error-msg-holder">
-                <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+                <p id="login-error-msg">Invalid username</p>
             </div>
             
             <div id="login-form">
-                <input type="text" name="username" id="username-field" className="login-form-field" placeholder="Username"/>
-                <input type="password" name="password" id="password-field" className="login-form-field" placeholder="Password"/>
-                <input type="submit" value="Login" id="login-form-submit" onClick={checkUser}/>
+                <input type="text" name="username" id="username-field" className="login-form-field" placeholder="Username" onKeyDown={handleEnter}/>
+                <input type="password" name="password" id="password-field" className="login-form-field" placeholder="Password" onKeyDown={handleEnter}/>
+                <button type="button" value="Login" id="login-form-submit" onClick={checkUser}>Login</button>
             </div>
             </main>
         </div>
