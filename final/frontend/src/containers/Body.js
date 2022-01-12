@@ -139,7 +139,7 @@ export default function Body() {
 
     return (
       <>
-      <div style={{position:"absolute", left:"21%", top:"24%", fontWeight:"bold", fontSize:"18px", fontFamily: "Comic Sans MS, Comic Sans, cursive", color:"#0d47a1", textShadow:"1px 1px white"}}>Hz</div>
+      <div style={{position:"absolute", left:"21%", top:"24%", fontWeight:"bold", fontSize:"18px", fontFamily: "Comic Sans MS, Comic Sans, cursive", color:"#70d1d0", textShadow:"1px 1px white"}}>Hz</div>
       <div style={{position:"absolute", left:"20%", top:"28%", fontWeight:"bold", fontFamily: "Comic Sans MS, Comic Sans, cursive", color: "white"}}>{upperfreqImg}-</div>
       <div style={{position:"absolute", left:"20%", top:"44%", fontWeight:"bold", fontFamily: "Comic Sans MS, Comic Sans, cursive", color: "white"}}>{parseInt(lowerfreqImg+3*(upperfreqImg-lowerfreqImg)/4)}-</div>
       <div style={{position:"absolute", left:"20%", top:"59.5%", fontWeight:"bold", fontFamily: "Comic Sans MS, Comic Sans, cursive", color: "white"}}>{parseInt(lowerfreqImg+2*(upperfreqImg-lowerfreqImg)/4)}-</div>

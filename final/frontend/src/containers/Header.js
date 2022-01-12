@@ -74,7 +74,7 @@ function Header() {
                 <MenuItem id = "reduction/enhancement" onClick={handleChange}>Noise Reduction/Sound Enhancement</MenuItem>
           </Menu>
           <Typography  style = {{fontWeight: "bold"}}variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            AUDIO SPECTRUM ANALYZER TOOLKIT
+            AUDIO SPECTRUM ANALYSIS TOOLKIT
           </Typography>
           <Button color="inherit" onClick={changeLogout()}>Logout</Button>
         </Toolbar>
