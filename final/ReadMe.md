@@ -58,3 +58,9 @@ after you have git pull the directory "/final", there will be 2 main subdirector
     this indicates that the backend (apis) is ready to served at ```localhost:5000/```
 
 5. Done, you may go to log in page to try out our work!
+
+## Database
+
+- We use MongoDB Atlas as our database. The account is from student **b0790113顏子鈞**
+- All the password stored in db is encrypted, such as:  
+![alt text](./mongodb.JPG?raw=true)
