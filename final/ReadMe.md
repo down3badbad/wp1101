@@ -1,9 +1,9 @@
 ## WP1101 Final Project
 
 ### member:
-- b07901122
-- b07901133
-- r08921078
+- 王譽凱b07901122
+- 顔子鈞b07901133
+- 鍾淳鎰r08921078
 
 
 after you have git pull the directory "/final", there will be 2 main subdirectories:  
@@ -59,8 +59,12 @@ after you have git pull the directory "/final", there will be 2 main subdirector
 
 5. Done, you may go to log in page to try out our work!
 
-## Database
 
-- We use MongoDB Atlas as our database. The account is from student **b0790113顏子鈞**
-- All the password stored in db is encrypted, such as:  
-![alt text](./mongodb.JPG?raw=true)
+## 每位組員之負責項目
+### b07901122
+
+
+### b07901133
+
+
+### r08921078
