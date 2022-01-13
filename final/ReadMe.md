@@ -18,6 +18,10 @@ after you have git pull the directory "/final", there will be 2 main subdirector
 
 3. Type ```yarn start``` and enjoy, the service is on ```localhost:3000/```
 
+4. Please use the combination provided below to login: 
+- username: admin
+- password: wp1101
+
 ## Backend
 
 ### Setting up environment
@@ -68,9 +72,20 @@ after you have git pull the directory "/final", there will be 2 main subdirector
 
 ## 每位組員之負責項目
 ### b07901122
-
+- 我在這個final project負責的項目為所有前端的開發以及前端與後端溝通API的部分。
+- 因爲我們處理的是圖像、音檔等多媒體資料，因此需要對傳輸進來的資料進行base64的decode才能進行使用。
+- 由於考量到使用者可能不會預先準備wav音檔，因此有准備一些example的音檔讓使用者去進行操作。
+- 所有在前端操作后的結果都會有新的component顯示出來/或被更新，使用者可以選擇是否下載相應的結果。
+- 登入的部分會提供一組提前准備好的賬號供使用者體驗，也會把使用者以前進行過的五筆資料從db拿回來顯示在前端，讓使用者下載結果。
+  
 
 ### b07901133
-
-
+- 我負責所有的backend和database的部分。因為我們此次的後台演算法需要比較intense的數字運算，而恰好js不擅長做這種工作，
+而python有numpy這樣的工具，因此backend的語言是用python，然後api則是用flask來寫。
+- 處理frontend api傳給我的參數，我會把計算好的結果encode成base64的string來回傳給frontend，讓他在前端decode。
+- 計算好的結果也要存一份在DB上。而從DB retrieve 結果下來也是要先經過decode才能用。
+- 而需要處理3大功能的演算法，我是透過修 ***丁建均老師的時頻分析與小波轉換*** 學到的，簡單來說就是 ***Gabor Transform, chipmunk effect, phase vocoder, even/odd gaussian filter***
+- 然後我幫忙美化一些frontend的設計。
+  
+  
 ### r08921078
