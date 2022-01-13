@@ -28,7 +28,7 @@ function Header() {
   const handleChange = (event) => {
     setAnchorEl(null);
     setFunc(event.currentTarget.id);
-    event.currentTarget.id == "TF-spectrum" ? setNo(0) : (currFunc == "adjust-speed" ? setNo(1) : setNo(2));
+    event.currentTarget.id === "TF-spectrum" ? setNo(0) : (event.currentTarget.id === "adjust-speed" ? setNo(1) : setNo(2));
   };
 
   const changeLogout = () => (event) => {
