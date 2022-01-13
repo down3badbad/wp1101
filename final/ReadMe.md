@@ -6,7 +6,7 @@
 - 鍾淳鎰r08921078
 
 
-after you have git pull the directory "/final", there will be 2 main subdirectories:  
+after you have git clone the directory "/final", there will be 2 main subdirectories:  
 "/final/frontend/" and "/final/backend", which our frontend work and backend work is separated.
 
 ## Frontend
@@ -89,3 +89,4 @@ after you have git pull the directory "/final", there will be 2 main subdirector
   
   
 ### r08921078
+- 暫時無。
