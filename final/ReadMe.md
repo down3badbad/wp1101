@@ -9,6 +9,15 @@
 after you have git pull the directory "/final", there will be 2 main subdirectories:  
 "/final/frontend/" and "/final/backend", which our frontend work and backend work is separated.
 
+## Frontend
+
+### How to run
+1. first, cd to "/final/frontend"
+
+2. Type ```yarn``` in your cmd to install all the packages included in ```package.json```
+
+3. Type ```yarn start``` and enjoy, the service is on ```localhost:3000/```
+
 ## Backend
 
 ### Setting up environment
