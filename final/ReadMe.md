@@ -14,7 +14,7 @@ after you have git pull the directory "/final", there will be 2 main subdirector
 ### How to run
 1. first, cd to "/final/frontend"
 
-2. Type ```yarn``` in your cmd to install the packages included in ```package.json```
+2. Type ```yarn``` in your cmd to install all the packages included in ```package.json```
 
 3. Type ```yarn start``` and enjoy
 
