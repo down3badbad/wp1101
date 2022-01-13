@@ -60,11 +60,11 @@ after you have git pull the directory "/final", there will be 2 main subdirector
 5. Done, you may go to log in page to try out our work!
 
 
-##每位組員之負責項目
-###b07901122
+## 每位組員之負責項目
+### b07901122
 
 
-###b07901133
+### b07901133
 
 
-###r08921078
+### r08921078
