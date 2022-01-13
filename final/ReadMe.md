@@ -24,7 +24,8 @@ after you have git pull the directory "/final", there will be 2 main subdirector
 - pillow (Version: 6.2.1)
 - scipy (Version: 1.4.0)
 - matplotlib (Version: 3.0.3)
-- numpy (Version: 1.16.2) *(this will affect opencv-python, librosa, scipy, matplotlib. strongly suggest you to get the specified version!)*
+- numpy (Version: 1.16.2) *(this will affect opencv-python, librosa, scipy, matplotlib. strongly suggest you to get the specified version!)*  
+  
 **you can just do it in a one liner:**
 ```pip install flask flask-cors flask-mongoengine opencv-python pillow numpy scipy librosa matplotlib```
 **or using the version specified command:**
